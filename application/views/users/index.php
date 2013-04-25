@@ -12,5 +12,6 @@
 	echo "  created time: ".$user->created_at;
 	echo "  updated time: ".$user->updated_at;
     echo "<br/>";
+	echo "<br/>";
   }
 ?>
