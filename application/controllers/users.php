@@ -9,7 +9,7 @@ class Users extends CI_Controller {
 		}
 
 		$data['id'] = $id ;
-		$this->data["content"] = $this->load->view("users/index", $data, true);
+		$this->data["content"] = $this->load->view("users/list", $data, true);
 		$this->load->view("layout/index", $this->data);
 	}
 
@@ -32,26 +32,31 @@ class Users extends CI_Controller {
 		$this->load->view("layout/index", $this->data);
 	}
 	
+	public function first(){
+		$this->data["content"] = $this->load->view("users/index" , null, true);
+		$this->load->view("layout/index", $this->data);
+	}
+	
 	public function update(){
-		$data = $this->input->post();
 		$this->load->model('User_model', 'user');
-		$res = $this->user->update($data);
+		$res = $this->user->update($_POST['id'], $_POST);
 		if ($res){
 			redirect("users/index");
 		}
 	}
 	
-	public function delete($id = null){
-		/* $data['deleteid'] = $id ;
+	public function delete(){
 		$this->data["content"] = $this->load->view("users/delete" , null, true);
-		$this->load->view("layout/index", $this->data); */
-		
-		$id = $this->uri->segment(3);
-    
-		$this->load->model('MStudent','',TRUE);
-		$this->MStudent->deleteStudent($id);
-		redirect('student/listing','refresh');
+		$this->load->view("layout/index", $this->data);
 
 	}
-	
+	public function deleted(){
+		$data = $this->input->post();
+		$id = $data['deleteid'];
+		$this->load->model('User_model', 'user');
+		$res = $this->user->delete($id);
+		if ($res){
+			redirect("users/index");
+		}
+	}
 }

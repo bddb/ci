@@ -21,12 +21,14 @@ class user_model extends CI_Model{
         return $this->db->insert('users', $data); 
     }
 	
-	function update($data){
-	
+	function update($id, $data){
+		$this->db->where("id", $id);
+		return $this->db->update('users', $data); 
 	}
 	
-	function delete($data){
-		
+	function delete($id){
+		$this->db->where("id", $id);
+		return $this->db->delete('users');
 	}
 }
 ?>
